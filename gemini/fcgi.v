@@ -62,7 +62,7 @@ pub fn (mut fcgi FastCGIRequest) read_header() !FastCGIHeader {
 		reserved: header[7]
 	}
 	content0 := []u8{len: 256, init: 0}
-	content1 := []u8{len: 256, init: 0}
+	// content1 := []u8{len: 256, init: 0}
 	padding := []u8{len: 256, init: 0}
 	if hdr.clen1 > 0 {
 		// packet is too large, not supported
@@ -129,9 +129,8 @@ pub fn (mut fcgi FastCGI) accept() !FastCGIRequest {
 			}
 			.params {
 				if header.content0.len > 1 {
-					klen := u8(header.content0.bytes()[2])
+					// klen := u8(header.content0.bytes()[2])
 					vlen := u8(header.content0.bytes()[3])
-
 					txt := header.content0.substr(8, 8 + vlen).trim_space()
 					val := header.content0.substr(vlen + 8, header.content0.len).trim_space()
 					env[txt] = val

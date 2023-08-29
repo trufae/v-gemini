@@ -56,9 +56,9 @@ fn (mut app App) btn_font_dec(b &ui.Button) {
 		app.font_size = 8
 	}
 	mut tbox := b.ui.window.get_or_panic[ui.TextBox]('frame')
-	 tbox.style_params.text_size = app.font_size
-	//mut dtw := ui.DrawTextWidget(tbox)
-	//dtw.update_text_size(app.font_size)
+	tbox.style_params.text_size = app.font_size
+	// mut dtw := ui.DrawTextWidget(tbox)
+	// dtw.update_text_size(app.font_size)
 	tbox.tv.update_lines()
 }
 

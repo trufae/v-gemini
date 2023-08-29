@@ -1,31 +1,38 @@
 module gemini
 
 pub struct Link {
+pub:
 	link  string
 	title string
 }
 
 pub struct Title {
+pub:
 	text string
 }
 
 pub struct SubTitle {
+pub:
 	text string
 }
 
 pub struct SubSubTitle {
+pub:
 	text string
 }
 
 pub struct Text {
+pub:
 	text string
 }
 
 pub struct Quote {
+pub:
 	text string
 }
 
 pub struct CodeBlock {
+pub:
 	syntax string
 	text   string
 }
@@ -33,6 +40,7 @@ pub struct CodeBlock {
 pub type Element = CodeBlock | Link | Quote | SubSubTitle | SubTitle | Text | Title
 
 pub struct Document {
+pub:
 	content []Element
 }
 
@@ -62,7 +70,9 @@ pub fn parse_document(text string) !Document {
 		} else if line.starts_with('=>') {
 			rest := line.substr(2, line.len).trim_space()
 			sep := rest.split_nth(' ', 2)
-			c << Link{sep[0], sep[1]}
+			if sep.len == 2 {
+				c << Link{sep[0], sep[1]}
+			}
 		} else if line.starts_with('>') {
 			c << Quote{line}
 		} else if line.starts_with('```') {

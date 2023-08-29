@@ -6,7 +6,7 @@ pub const (
 	default_key  = 'key.pem'
 )
 
-pub enum ErrorCode {
+pub enum StatusCode {
 	input = 10
 	success = 20
 	not_found = 51

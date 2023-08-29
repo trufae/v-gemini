@@ -5,5 +5,9 @@ This is a simple startup page for testing purposes
 => index.gmi
 => search search stuff in local
 
+Protocol specification
+
+=> gemini://gemini.circumlunar.space/docs/specification.gmi
+
 => gemini://radare.org
 => gemini://gemini.osnews.com/

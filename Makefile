@@ -1,10 +1,9 @@
 CN=localhost
 
 all:
-	v run test-server.v
-
 	v test-cgi.v
 	v run main.v
+	v run test-server.v
 
 fmt:
 	v fmt -w .

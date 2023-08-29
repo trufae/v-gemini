@@ -1,0 +1,9 @@
+# Hello World from Gemini
+
+This is a simple startup page for testing purposes
+
+=> index.gmi
+=> search search stuff in local
+
+=> gemini://radare.org
+=> gemini://gemini.osnews.com/

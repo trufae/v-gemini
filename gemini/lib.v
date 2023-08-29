@@ -3,8 +3,6 @@ module gemini
 import io
 import net.mbedtls
 
-pub const default_port = 1965
-
 pub struct Uri {
 	protocol string
 	peer     string
@@ -29,7 +27,7 @@ pub fn parse_uri(url string) !Uri {
 	}
 	rest := kv[1].split_nth('/', 2)
 	hp := rest[0].split(':')
-	port := if hp.len > 1 { hp[1].int() } else { gemini.default_port }
+	port := if hp.len > 1 { hp[1].int() } else { default_port }
 	page := if rest.len > 1 { rest[1] } else { '' }
 	return Uri{
 		protocol: 'gemini'

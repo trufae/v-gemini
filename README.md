@@ -7,6 +7,8 @@ This repository contains the following implementations in V:
 * FastCGI - api to communicate with the webserver using the fast-cgi binary protocol
 * GMI - the gemini markup language, kind of a minimalistic version of markdown
 
+<center><img src="gui.jpg" /></center>
+
 ## To learn more about the Gemini
 
 Google for it

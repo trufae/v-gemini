@@ -1,6 +1,7 @@
 module gemini
 
 import io
+import strings
 import net.mbedtls
 
 pub struct Uri {
@@ -46,14 +47,15 @@ pub fn fetch(url string) !Response {
 	mut reader := io.new_buffered_reader(reader: client)
 	response := reader.read_line() or { return error('cannot read response from socket') }
 	res := response.split_nth(' ', 2)
-	mut text := ''
+	mut text := strings.new_builder(32)
 	for {
-		text += reader.read_line() or { break }
-		text += '\n'
+		curline := reader.read_line() or { break }
+		text.write_string(curline)
+		text.write_string('\n')
 	}
 	return Response{
 		code: res[0].int()
 		mime: res[1]
-		body: text
+		body: text.str()
 	}
 }

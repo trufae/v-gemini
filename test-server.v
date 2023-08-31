@@ -17,7 +17,7 @@ fn main() {
 		}
 		dump(query)
 		mut response := ''
-		mut code := gemini.ErrorCode.not_found
+		mut code := gemini.StatusCode.not_found
 		arg = 'text/gemini'
 		if query.path == '' {
 			response = 'hello world\n'

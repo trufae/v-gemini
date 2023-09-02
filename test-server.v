@@ -6,7 +6,10 @@ fn main() {
 	mut arg := 'text/gemini'
 	for {
 		arg = 'text/gemini'
-		mut query := s.accept()!
+		mut query := s.accept() or {
+			eprintln(err)
+			continue
+		}
 		dotdot := query.path.index('..') or { -1 }
 		if query.path.starts_with('/') || dotdot != -1 {
 			query.respond(51, 'invalid path', '')!

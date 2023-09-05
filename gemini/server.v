@@ -45,7 +45,11 @@ pub fn (mut gs Server) accept() !Query {
 		proto = words[0]
 		host_path := words[1].split_nth('/', 2)
 		host = host_path[0]
-		path_data := host_path[1].split_nth('?', 2)
+		path_data := if host_path.len > 1 {
+			host_path[1].split_nth('?', 2)
+		} else {
+			['']
+		}
 		path = path_data[0]
 		data = if path_data.len > 1 { path_data[1] } else { '' }
 	} else {

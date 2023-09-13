@@ -27,6 +27,7 @@ pub mut:
 	host     string
 	path     string
 	data     string
+	peer     string
 }
 
 pub fn (mut gs Server) accept() !Query {
@@ -39,6 +40,7 @@ pub fn (mut gs Server) accept() !Query {
 	mut path := ''
 	mut host := ''
 	mut data := ''
+	mut peer := ''
 	index := request.index('://') or { -1 }
 	if index != -1 {
 		words := request.split_nth('://', 2)
@@ -51,6 +53,9 @@ pub fn (mut gs Server) accept() !Query {
 			['']
 		}
 		path = path_data[0]
+		if ip_port := client.peer_addr() {
+			peer = ip_port.str()
+		}
 		data = if path_data.len > 1 { path_data[1] } else { '' }
 	} else {
 		proto = ''
@@ -63,6 +68,7 @@ pub fn (mut gs Server) accept() !Query {
 		host: host
 		path: path
 		data: data
+		peer: peer
 	}
 }
 

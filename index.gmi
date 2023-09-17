@@ -4,6 +4,7 @@ This is a simple startup page for testing purposes
 
 => index.gmi
 => search search stuff in local
+=> weather The Weather
 
 Protocol specification
 

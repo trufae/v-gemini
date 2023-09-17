@@ -4,10 +4,10 @@ import net.unix
 
 enum RequestType {
 	begin_request = 1
-	end_request = 3
-	params = 4
-	stdin = 5
-	stdout = 6
+	end_request   = 3
+	params        = 4
+	stdin         = 5
+	stdout        = 6
 }
 
 [heap]

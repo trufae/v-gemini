@@ -1,5 +1,31 @@
 import gemini
+import net.http
 import os
+
+fn respond_weather(mut query gemini.Query) {
+	mut ip := '' // query.peer.split(':')[0]
+	words := query.path.split('/')
+	println('query: ${query.path}')
+	if words.len > 1 && !words[1].contains('.gmi') {
+		ip = words[1]
+	}
+	println('words: ${words}')
+	res := http.get('https://wttr.in/' + ip + '?ATn') or {
+		query.respond(int(gemini.StatusCode.not_found), 'file not found', '') or {}
+		return
+	}
+	mime := 'text/gemini'
+	mut out := ''
+	for line in res.body.split('\n') {
+		if line.starts_with('Weather') {
+			out += '# ${line}\n```'
+		} else {
+			out += '${line}\n'
+		}
+	}
+	mut body := out + '\n```\n=> .. back\n'
+	query.respond(int(gemini.StatusCode.success), mime, body) or {}
+}
 
 fn respond(mut query gemini.Query) ! {
 	mut response := ''
@@ -17,7 +43,9 @@ fn respond(mut query gemini.Query) ! {
 		response = 'hello world\n'
 		code = .success
 	} else {
-		if query.path == 'search' {
+		if query.path.starts_with('weather') {
+			respond_weather(mut query)
+		} else if query.path == 'search' {
 			if query.data != '' {
 				response = '# Ok\n' + 'We search for ${query.data}\n' + '=> search again\n' +
 					'=> / root\n'
@@ -63,9 +91,7 @@ fn main() {
 		}
 		dump(query)
 		if valid(mut query) {
-			respond(mut query) or {
-				eprintln(err)
-			}
+			respond(mut query) or { eprintln(err) }
 		} else {
 			query.respond(51, 'invalid path', '')!
 		}

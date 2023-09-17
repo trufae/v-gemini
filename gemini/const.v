@@ -7,7 +7,7 @@ pub const (
 )
 
 pub enum StatusCode {
-	input = 10
-	success = 20
+	input     = 10
+	success   = 20
 	not_found = 51
 }
